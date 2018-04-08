@@ -1,0 +1,13 @@
+Date: 04-02-2018
+Problem:
+    1. Particle_weight is all 0.0 after several prediction;
+
+Date: 04-03-2018
+Problem: 
+    1. After adjusting observationFCN, PF finally can work;
+    2. The problem resides in particle propagation is not exactly matches real data changing trend;
+    3. Solution is mapping particle propagation to observation space for calculating the weights;
+    4. Reason is keeping particle ranges from [0, positive int], which corresponds to real data distribution;
+    5. Next question is how to make [positive int] closer to 1 ?
+
+
