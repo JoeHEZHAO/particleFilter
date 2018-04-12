@@ -7,6 +7,8 @@ Advisor: Richard Wildes
 
 '''
 
+import numpy as np
+
 para = {}
 para['particle_mean'] = 0.5
 para['particle_sigma'] = 0.5
@@ -22,5 +24,18 @@ data_config['root_dir'] = '/home/zhufl/Data/soe/'
 data_config['data_name'] = 'video1.mat'
 data_config['highlight'] = [63, 71]
 
+
+''' clock-wise dirction start from right-ward, 0, -45, -90, -135, 180, 135, 80, 45'''
+covariance_matrix = np.array([
+                             [1,0.707,0,-0.707,-1,-0.707,0,0.707],
+                             [0.707,1,0.707,0,-0.707,-1,-0.707,0],
+                             [0, 0.707, 1, 0.707, 0, -0.707, -1, -0.707],
+                             [-0.707,0,0.707,1,0.707,0,-0.707,-1],
+                             [-1,-0.707,0,0.707,1,0.707,0,-0.707],
+                             [-0.707,-1,-0.707,0,0.707,1,0.707,0],
+                             [0,-0.707,-1,-0.707,0,0.707,1,0.707],
+                             [0.707,0,-0.707,-1,-0.707,0,0.707,1],
+                            ])
+
 if __name__ == '__main__':
-	pass
+	print(covariance_matrix)

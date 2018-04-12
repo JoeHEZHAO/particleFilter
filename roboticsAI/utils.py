@@ -4,6 +4,8 @@ Design motion model for Particle Filter
 '''
 
 import os, sys
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../'))
+from config import covariance_matrix
 from math import *
 import random
 import numpy as np
@@ -57,14 +59,45 @@ def resample1(W, P):
             beta -= W[index]
             index = (index + 1) % N
         New_P.append(P[index])
-    
+
     P = New_P
 
     return P
+
+def update_acceleration(gradient, covariance_matrix):
+
+    '''
+    Input: [8,] second order gradient matrix, for only one time step;
+           [8, 8] covariance_matrix;
+           Assume eight direcitons are clock-wise ranging;
+
+    output: weighted sum of acceleration by assigning 0.79 to major direction and 0.03 to splitted covariance acceleration
+
+    '''
+
+    new_acceleration = []
+
+    for row in range(8):
+
+        for col in range(8):
+
+            if covariance_matrix[row, col] == 1:
+                covariance_matrix[row, col] *= 0.79
+            else:
+                covariance_matrix[row, col] *= 0.03
+
+    for i in range(8):
+
+        new_acceleration.append(np.matmul(gradient.T, covariance_matrix[i, :]))
+
+    return new_acceleration
 
 def main():
     pass
 
 if __name__ == '__main__':
-    main()
+
+    gradient = np.zeros(8)
+
+    print(update_acceleration(gradient, covariance_matrix)[0])
 

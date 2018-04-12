@@ -33,17 +33,11 @@ class particles:
         self.boundary = boundary
 
     def motion(self, motion, v=1, a=0, t=1):
+        '''
+        Apply motion model and add noise
+        '''
 
         self.x = motion(self.x, v, a, t) + random.gauss(0.0, self.forward_noise)
-
-        ''' out of boundary would be taken care of by resampling
-        if self.x >= 1.0:
-            self.x = 0.9
-        elif self.x <= 0.0:
-            self.x = 0.1
-
-        self.x %= self.boundary
-        '''
 
     def Gaussian(self, mu, sigma, x):
         '''
@@ -62,14 +56,6 @@ class particles:
     def __repr(self):
         return '[x=%.3s, weight=%.3s]' % (str(self.x,), str(self.weight))
 
-def eval(r, p, N):
-    sum = 0.0
-    for i in range(len(p)): # calculate mean error
-        dx = (p[i].x - r) % N
-        err = sqrt(dx * dx)
-        sum += err
-    return sum / float(len(p))
-
 if __name__ == '__main__':
 
     # prepare data & choose arbitary dimension
@@ -84,9 +70,9 @@ if __name__ == '__main__':
 
     # highlight
     pred_range = [64, 74]
-    
-    # init 100 particles 
-    N = 50
+
+    # init 100 particles
+    N = 100
     P = []
     Estimation = []
 
@@ -99,7 +85,7 @@ if __name__ == '__main__':
     # gradient
     g_1 = gradient_1(measurements[dim, :])
     g_2 = gradient_2(measurements[dim, :])
-    
+
     # run motion model
     for t in range(Length):
         measurement = measurements[dim, t]
@@ -116,31 +102,22 @@ if __name__ == '__main__':
             W = []
 
             # motion
-            for n in range(N): 
+            for n in range(N):
 
                 P[n].motion(motionFCN, v=g_1[t], a=g_2[t], t=1)
 
-                W.append(P[n].measurement_prob(measurement)) 
+                W.append(P[n].measurement_prob(measurement))
 
             ''' normal weights turns tobe important '''
             W1 = [i / (sum(W) + 1e-10) for i in W]
             W = W1
-
-            '''plot weight changing'''
-            # print(sum(W))
-            # plt.plot(W)
-            # plt.show()
 
             ''' resample1 from robotAI course '''
             # P = resample1(W, P)
 
             ''' resample2 '''
             P = resample2(W, P)
-        
-        # plot Particles after either pred or pred+update
-        # plt.plot([y.x for y in P])
-        # plt.show()
-        
+
         # evaluation and store
         score = np.mean([y.x for y in P])
         Estimation.append(score)
@@ -152,8 +129,3 @@ if __name__ == '__main__':
     plt.plot(Estimation)
     plt.legend(['True data', 'Estimation'], loc='upper left')
     plt.show()
-
-
-
-
-

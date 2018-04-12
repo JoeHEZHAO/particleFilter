@@ -38,7 +38,7 @@ if __name__ == '__main__':
     for i in range(N):
         x = particles()
         # x.set(random.uniform(0, 1), 0.01, 0.0001, 1)
-        x.set(random.gauss(data_mean, 0.2), 0.1, 0.001, 1)
+        x.set(random.gauss(data_mean, 0.2), 0.001, 0.001, 1)
         P.append(x)
 
     # gradient
@@ -62,10 +62,5 @@ if __name__ == '__main__':
     plt.gca().set_color_cycle(['red', 'green'])
     plt.plot(measurements[dim, :])
     plt.plot(Estimation)
-    plt.legend(['True data', 'Estimation'], loc='upper left')
+    plt.legend(['True data', 'Prediction'], loc='upper left')
     plt.show()
-
-
-
-
-
