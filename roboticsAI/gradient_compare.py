@@ -1,11 +1,7 @@
 '''
 Date: 04-16-2018
 Introduction: compute and display different gradient methods
-
-
 '''
-
-
 
 from __future__ import division
 import os, sys, cv2, random, copy
@@ -15,7 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../"))
 from ParticleFilter import particles
 from dataRead import readMat, normalize
 from config import data_config
-from utils import motionFCN, gradient_1, gradient_2, resample2, resample1
+from utils import motionFCN, gradient_1, gradient_2, resample2, resample1, gradient_1_bk, gradient_2_bk
 from matplotlib import pyplot as plt
 from Propagation import propagation
 
@@ -44,10 +40,13 @@ for i in range(N):
 
 g_2 = gradient_2(data[dim, :])
 g_1 = gradient_1(data[dim, :])
+g_2_bk = gradient_2_bk(data[dim, :])
+g_1_bk = gradient_1_bk(data[dim, :])
 
-plt.gca().set_color_cycle(["red", "green", "yellow"])
-# plt.plot(g_1_bk)
+plt.gca().set_color_cycle(["red", "green", "yellow", "blue"])
+plt.plot(g_1)
+plt.plot(g_1_bk)
 plt.plot(g_2)
-# plt.plot(g_1)
-plt.legend(["G1 with bk", "G2", "G1 with center"] , loc="upper left")
+plt.plot(g_2_bk)
+plt.legend(["G1 Center", "G1 Back", "G2 Center", "G2 Back"] , loc="upper left")
 plt.show()

@@ -20,9 +20,10 @@ para['errorPrior_sigma'] = 1
 para['numOfParticle'] = 500
 
 data_config = {}
-data_config['root_dir'] = '/home/zhufl/Data/soe/'
+data_config['root_dir'] = '/home/zhufl/Data/soe/grid'
 data_config['data_name'] = 'video1.mat'
 data_config['highlight'] = [63, 71]
+data_config['data_name'] = "Canoe.mat"
 
 
 ''' clock-wise dirction start from right-ward, 0, -45, -90, -135, 180, 135, 80, 45'''

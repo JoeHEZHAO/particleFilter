@@ -19,10 +19,31 @@ def motionFCN(x, v=0, a=0, t=1):
     return x + v*t + 0.5*a*t**2
 
 ''' gradient function from numpy, which use multiplt order accuracy '''
-# def gradient_1(data):
-#     return np.gradient(data)
-
 def gradient_1(data):
+    return np.gradient(data)
+
+def average_gradient(gradient, step):
+
+    '''
+    return averaged gradient for certain backward steps
+
+    '''
+
+    out = []
+
+    for idx, g in enumerate(gradient):
+        if idx == 0:
+            out.append(g)
+
+        elif idx < step:
+            out.append(sum([y for y in gradient[:idx+1]]) / (idx+1))
+
+        else:
+            out.append(sum([y for y in gradient[(idx-step+1):idx+1]]) / step)
+
+    return out
+
+def gradient_1_bk(data):
 
     '''
         first element using forward gradient;
@@ -40,12 +61,12 @@ def gradient_1(data):
 
     return gradient
 
-# def gradient_2(data):
-#     return gradient_1(gradient_1(data))
-
 def gradient_2(data):
-
     return gradient_1(gradient_1(data))
+
+def gradient_2_bk(data):
+
+    return gradient_1_bk(gradient_1_bk(data))
 
 def gradient_second_order(y, dx=1):
     """Returns second order accurate derivative of y using constant step size dx."""
@@ -74,7 +95,7 @@ def resample2(W, P):
     C = [0.] + [sum(W[:i+1]) for i in range(w_len)]
     u0, j = np.random.rand(), 0
 
-    # generate rising order random value to decide if discard weights
+    ''' generate rising order random value to decide if discard weights '''
     b = [(u0+i)/w_len for i in range(w_len)]
 
     for u in b:
@@ -134,12 +155,25 @@ def update_acceleration(gradient, covariance_matrix):
 
     return new_acceleration
 
+def showData(data):
+
+    '''
+    Display 1d data
+
+    '''
+
+    plt.plot(data)
+    plt.show()
+
 def main():
     pass
 
 if __name__ == '__main__':
 
-    gradient = np.zeros(8)
+    gradient = np.arange(20)
 
-    print(update_acceleration(gradient, covariance_matrix)[0])
+    # print(update_acceleration(gradient, covariance_matrix)[0])
+
+    print(gradient.shape)
+    print(len(average_gradient(gradient, 3)))
 

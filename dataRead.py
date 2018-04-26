@@ -10,12 +10,11 @@ import os, sys
 import scipy.io as io
 import numpy as np
 
-def readMat(data_path):
-    
-    return io.loadmat(data_path)['result']
+def readMat(data_path, name='result'):
+    return io.loadmat(data_path)[name]
 
 def normalize(data):
-    ''' 
+    '''
         convert numpy array into normalized version based on each channel;
         if input is list, convert to arrary first
     '''
@@ -29,9 +28,9 @@ def normalize(data):
     for i in range(dims):
 		data[i,:] = data[i,:] / np.max(data[i,:])
 
-    return data 
+    return data
 
 if __name__ == '__main__':
-    data_path = ''    
+    data_path = ''
     readMat(data_path)
 

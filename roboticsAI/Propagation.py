@@ -43,8 +43,6 @@ class propagation(object):
 
             self.particles[n].motion(self.motionfcn, v=self.gradient_1[t_idx], a=self.gradient_2[t_idx], t=1)
 
-
-        # self.prediction[t_idx] = np.mean([y.x for y in self.particles])
         self.prediction.append(np.mean([y.x for y in self.particles]))
 
     def measurement_update(self, t_idx):
@@ -60,7 +58,6 @@ class propagation(object):
 
         self.particles = resample2(W, self.particles)
 
-        # self.estimation[t_idx] = np.mean([y.x for y in self.particles])
         self.estimation.append(np.mean([y.x for y in self.particles]))
 
 
