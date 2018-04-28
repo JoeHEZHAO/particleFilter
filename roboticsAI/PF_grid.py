@@ -24,7 +24,6 @@ import argparse
 ''' parse args'''
 parser = argparse.ArgumentParser(description='choose grid')
 parser.add_argument('grid', type=int, help='input 0 - 100 grd number')
-
 args = parser.parse_args()
 
 ''' prepare data '''
@@ -66,9 +65,7 @@ for dim in range(8):
     for i in range(N):
         x = particles()
         # x.set(random.uniform(data_mean - data_variance, data_mean + data_variance), .0001, 5.0, 1)
-        # x.set(random.gauss(data_mean, .2), .0001, 5.0, 1)
         x.set(random.uniform(data_mean - data_variance, data_mean + data_variance), .001, data_variance**2, 1)
-        # x.set(random.gauss(data_mean, data_variance / 5), .001, data_variance**2, 1)
         P.append(x)
 
     ''' compute gradient '''
@@ -104,7 +101,6 @@ for i in range(8):
 video_root = '/home/zhufl/Data/anomalous/Canoe/'
 video_name = 'input.avi'
 video_path = os.path.join(video_root, video_name)
-# print(vid._shape)
 vid = pims.Video(video_path)
 vid_h, vid_w, vid_c = vid._shape
 
@@ -137,9 +133,7 @@ def redraw_fn(f, arg):
         redraw_fn.initialized = True
 
     else:
-        '''
-        Reminder that soe directions are clock-wise in response data in format [0:8, :]
-        '''
+        ''' Reminder that soe directions are clock-wise in response data in format [0:8, :] '''
         redraw_fn.im.set_array(img)
 
         for idx, line in enumerate(redraw_fn.lines):

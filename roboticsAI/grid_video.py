@@ -15,6 +15,8 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker as pltticker
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Slider
+# TODO: dynamic generate grid on video
+
 
 ''' set videofig class for display '''
 class customVideo(videofig):

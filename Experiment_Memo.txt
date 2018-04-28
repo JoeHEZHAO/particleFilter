@@ -50,7 +50,7 @@ Experiments:
     3. I could also try do pure prediction for several frames;
     
 Conclusion:
-    1. Pure prediction is also pretty good, haha
+    1. Pure prediction is also pretty good
     2.
 
 Date: 04-25-2018
@@ -71,4 +71,10 @@ Problem:
     2. Using gradient is tooooooo relevant to original data;
     3. Try to use another feature or change different way to pred;
     4. This is the stupiset mistake I have ever make; Do not make the same ever
+
+Solution: Find a prediction way that totally fits our needs;
+          Find other information, not gradient;
+          Find another feature representation;
+          Or use GP or AR like prediction method, which capture less accurate information;
+
 

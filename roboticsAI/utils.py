@@ -51,7 +51,6 @@ def gradient_1_bk(data):
     '''
 
     gradient = []
-
     for idx, i in enumerate(data):
 
         if idx == 0:
